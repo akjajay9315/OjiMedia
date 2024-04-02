@@ -5,11 +5,12 @@ import Users from "../models/userModel.js";
 export const createPost = async (req, res, next) => {
   try {
     const { userId } = req.body.user;
-    const { description, image } = req.body;z
+    const { description, image } = req.body;
 
     if (!description) {
-      next("You must provide a description");
-      return;
+      return res
+        .status(400)
+        .json({ message: "You must provide a description" });
     }
 
     const post = await Posts.create({
@@ -19,13 +20,13 @@ export const createPost = async (req, res, next) => {
     });
 
     res.status(200).json({
-      sucess: true,
+      success: true,
       message: "Post created successfully",
       data: post,
     });
   } catch (error) {
-    console.log(error);
-    res.status(404).json({ message: error.message });
+    console.error("Error creating post:", error);
+    res.status(500).json({ message: "Failed to create post" });
   }
 };
 
