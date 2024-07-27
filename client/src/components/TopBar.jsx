@@ -1,5 +1,6 @@
 import React from "react";
 import { TbSocial } from "react-icons/tb";
+import { MdMessage } from "react-icons/md"; // Import message icon
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import TextInput from "./TextInput";
@@ -23,12 +24,11 @@ const TopBar = () => {
 
   const handleTheme = () => {
     const themeValue = theme === "light" ? "dark" : "light";
-
     dispatch(SetTheme(themeValue));
   };
 
   const handleSearch = async (data) => {
-    await fetchPosts(user.token,dispatch,"",data);
+    await fetchPosts(user.token, dispatch, "", data);
   };
 
   return (
@@ -48,7 +48,7 @@ const TopBar = () => {
       >
         <TextInput
           placeholder="Search..."
-          styles="w-[18rem] lg:w-[38rem]  rounded-l-full py-3 "
+          styles="w-[18rem] lg:w-[38rem] rounded-l-full py-3 "
           register={register("search")}
         />
         <CustomButton
@@ -61,8 +61,11 @@ const TopBar = () => {
       {/* ICONS */}
       <div className="flex gap-4 items-center text-ascent-1 text-md md:text-xl">
         <button onClick={() => handleTheme()}>
-          {theme ? <BsMoon /> : <BsSunFill />}
+          {theme === "light" ? <BsMoon /> : <BsSunFill />}
         </button>
+        <a href="https://oji-chat-rho.vercel.app/" target="_blank" rel="noopener noreferrer">
+          <MdMessage />
+        </a>
         <div className="hidden lg:flex">
           <IoMdNotificationsOutline />
         </div>
