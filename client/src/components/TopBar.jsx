@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TbSocial } from "react-icons/tb";
 import { MdMessage } from "react-icons/md"; // Import message icon
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +21,16 @@ const TopBar = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const [visitCount, setVisitCount] = useState(0);
+
+  useEffect(() => {
+    const count = localStorage.getItem("visitCount");
+    const newCount = count ? parseInt(count) + 1 : 1;
+
+    localStorage.setItem("visitCount", newCount);
+    setVisitCount(newCount);
+  }, []);
 
   const handleTheme = () => {
     const themeValue = theme === "light" ? "dark" : "light";
@@ -57,13 +67,21 @@ const TopBar = () => {
           containerStyles="bg-[#0444a4] text-white px-6 py-2.5 mt-2 rounded-r-full"
         />
       </form>
+      {/* Display Visit Count */}
+      {/* <div className="visit-count hidden md:block">
+        <p className="text-sm text-white">{visitCount} Website Visitors</p>
+      </div> */}
 
       {/* ICONS */}
       <div className="flex gap-4 items-center text-ascent-1 text-md md:text-xl">
-        <button onClick={() => handleTheme()}>
+        <button onClick={handleTheme}>
           {theme === "light" ? <BsMoon /> : <BsSunFill />}
         </button>
-        <a href="https://oji-chat-rho.vercel.app/" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://oji-chat-rho.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <MdMessage />
         </a>
         <div className="hidden lg:flex">
