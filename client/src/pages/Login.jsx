@@ -302,12 +302,12 @@ const Login = () => {
               error={errors.password ? errors.password?.message : ""}
             />
 
-            <Link
+            {/* <Link
               to="/reset-password"
               className="mt-2 mb-2 text-sm text-right text-blue font-semibold"
             >
               Forgot Password ?
-            </Link>
+            </Link> */}
 
             {errMsg?.message && (
               <span
